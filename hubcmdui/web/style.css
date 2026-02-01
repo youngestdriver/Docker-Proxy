@@ -1340,113 +1340,261 @@
 }
 
 /* 代码块样式 - 现代设计 */
-#documentationText pre {
-    background: #1e293b;
-    color: #e2e8f0;
+/* ========== Highlight.js 代码块样式 ========== */
+#documentationText pre,
+#documentationText .wp-block-code {
+    background: #282c34;
+    color: #abb2bf;
     padding: 0;
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
     margin: 24px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid #334155;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 1px solid #21252b;
     position: relative;
-    font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 /* 代码块头部 - 终端样式 */
-#documentationText pre::before {
+#documentationText pre::before,
+#documentationText .wp-block-code::before {
     content: '';
     display: block;
-    padding: 12px 16px;
-    background: #334155;
-    border-bottom: 1px solid #475569;
+    height: 36px;
+    background: #21252b;
+    border-bottom: 1px solid #181a1f;
     position: relative;
 }
 
 /* 模拟终端按钮 */
-#documentationText pre::after {
+#documentationText pre::after,
+#documentationText .wp-block-code::after {
     content: '';
     position: absolute;
-    top: 14px;
+    top: 12px;
     left: 16px;
     width: 12px;
     height: 12px;
-    background: #ef4444;
+    background: #ff5f56;
     border-radius: 50%;
     box-shadow: 
-        18px 0 #eab308, 
-        36px 0 #22c55e;
+        18px 0 #ffbd2e, 
+        36px 0 #27c93f;
 }
 
-#documentationText pre code {
+/* Highlight.js 代码容器 */
+#documentationText pre code,
+#documentationText .wp-block-code code {
     display: block;
-    padding: 20px 24px;
-    background: transparent;
+    background: transparent !important;
     color: inherit;
-    border: none;
+    border: none !important;
     border-radius: 0;
     font-family: inherit;
-    font-size: 14px;
-    line-height: 1.65;
-    white-space: pre;
+    font-size: inherit;
+    line-height: 1.6;
+    padding: 6px 20px 12px 20px !important;
     overflow-x: auto;
+}
+
+/* 代码行样式 */
+#documentationText pre code .hljs-line,
+#documentationText .wp-block-code code .hljs-line {
+    display: block;
+    white-space: pre;
+    line-height: 1.6;
+}
+
+/* 复制按钮 - 放在顶部标题栏 */
+#documentationText pre .copy-btn,
+#documentationText .wp-block-code .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    padding: 4px 10px;
+    background: rgba(171, 178, 191, 0.15);
+    color: #abb2bf;
+    border: 1px solid rgba(171, 178, 191, 0.25);
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 10;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.4;
+}
+
+#documentationText pre .copy-btn:hover,
+#documentationText .wp-block-code .copy-btn:hover {
+    background: rgba(97, 175, 239, 0.2);
+    color: #61afef;
+    border-color: rgba(97, 175, 239, 0.3);
+}
+
+#documentationText pre .copy-btn.copied,
+#documentationText .wp-block-code .copy-btn.copied {
+    background: rgba(152, 195, 121, 0.2);
+    color: #98c379;
+    border-color: rgba(152, 195, 121, 0.3);
+}
+
+#documentationText pre .copy-btn i,
+#documentationText .wp-block-code .copy-btn i {
+    font-size: 11px;
 }
 
 /* 行内代码样式 */
 #documentationText code {
-    font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
     background: #f1f5f9;
-    color: #0f172a;
+    color: #e74c3c;
     padding: 3px 8px;
-    border-radius: 6px;
+    border-radius: 4px;
     font-size: 14px;
     border: 1px solid #e2e8f0;
 }
 
-/* 代码块头部 - doc-content 类 */
-.doc-content pre::before {
-    content: attr(data-language, 'Code');
+/* 代码块中的code标签不应用行内样式 */
+#documentationText pre code,
+#documentationText .wp-block-code code {
+    background: transparent;
+    border: none;
+    color: inherit;
+    padding: 0;
+}
+
+/* 代码块样式 - doc-content 类 */
+.doc-content pre,
+.doc-content .wp-block-code {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 24px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 1px solid #21252b;
+    position: relative;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+}
+
+.doc-content pre::before,
+.doc-content .wp-block-code::before {
+    content: '';
     display: block;
-    padding: 12px 16px;
-    background: #334155;
-    color: #94a3b8;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid #475569;
+    padding: 10px 16px;
+    background: #21252b;
+    border-bottom: 1px solid #181a1f;
     position: relative;
 }
 
-/* 模拟 macOS 窗口按钮 */
-.doc-content pre::after {
+.doc-content pre::after,
+.doc-content .wp-block-code::after {
     content: '';
     position: absolute;
-    top: 14px;
-    right: 16px;
+    top: 12px;
+    left: 16px;
     width: 12px;
     height: 12px;
-    background: #ef4444;
+    background: #ff5f56;
     border-radius: 50%;
     box-shadow: 
-        -18px 0 #eab308, 
-        -36px 0 #22c55e;
+        18px 0 #ffbd2e, 
+        36px 0 #27c93f;
 }
 
-.doc-content pre code {
+.doc-content pre code,
+.doc-content .wp-block-code code {
     display: block;
-    padding: 20px 24px;
     background: transparent;
     color: inherit;
     border: none;
-    border-radius: 0;
     font-family: inherit;
     font-size: 14px;
-    line-height: 1.65;
+    line-height: 1.6;
+    padding: 0;
+    overflow: visible;
+}
+
+.doc-content pre code .hljs-ln,
+.doc-content .wp-block-code code .hljs-ln {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table;
+}
+
+.doc-content pre code .hljs-ln tbody,
+.doc-content .wp-block-code code .hljs-ln tbody {
+    display: table-row-group;
+}
+
+.doc-content pre code .hljs-ln tr,
+.doc-content .wp-block-code code .hljs-ln tr {
+    display: table-row;
+    border: none;
+}
+
+.doc-content pre code .hljs-ln td,
+.doc-content .wp-block-code code .hljs-ln td {
+    display: table-cell;
+    border: none;
+}
+
+.doc-content pre code .hljs-ln-numbers,
+.doc-content .wp-block-code code .hljs-ln-numbers {
+    width: 50px;
+    text-align: right;
+    vertical-align: top;
+    background: #282c34;
+    border-right: 1px solid #3e4451;
+    user-select: none;
+    padding: 0;
+}
+
+.doc-content pre code .hljs-ln-n,
+.doc-content .wp-block-code code .hljs-ln-n {
+    padding: 0 12px 0 0;
+    color: #5c6370;
+    font-size: 13px;
+    display: block;
+    line-height: 1.5;
+}
+
+.doc-content pre code .hljs-ln-n::before,
+.doc-content .wp-block-code code .hljs-ln-n::before {
+    content: attr(data-line-number);
+}
+
+.doc-content pre code .hljs-ln-code,
+.doc-content .wp-block-code code .hljs-ln-code {
+    padding: 0;
+    vertical-align: top;
+    background: #282c34;
+}
+
+.doc-content pre code .hljs-ln-line,
+.doc-content .wp-block-code code .hljs-ln-line {
+    padding: 0 16px;
+    display: block;
     white-space: pre;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    line-height: 1.5;
+}
+
+.doc-content pre code .hljs-ln tr:hover .hljs-ln-numbers,
+.doc-content .wp-block-code code .hljs-ln tr:hover .hljs-ln-numbers {
+    background: #2c313a;
+}
+
+.doc-content pre code .hljs-ln tr:hover .hljs-ln-code,
+.doc-content .wp-block-code code .hljs-ln tr:hover .hljs-ln-code {
+    background: #2c313a;
 }
 
 .doc-content pre code::-webkit-scrollbar {
@@ -1648,6 +1796,94 @@
 .empty-content p, .error-container p {
     color: #6b7280;
     font-size: 14px;
+}
+
+/* 搜索无结果样式 */
+.empty-result {
+    text-align: center;
+    padding: 60px 32px;
+    background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+    border-radius: 16px;
+    border: 1px dashed #e5e7eb;
+    margin: 20px 0;
+}
+
+.empty-result .empty-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-result .empty-icon i {
+    font-size: 36px;
+    color: #3b82f6;
+}
+
+.empty-result h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 12px 0;
+}
+
+.empty-result > p {
+    font-size: 15px;
+    color: #6b7280;
+    margin: 0 0 24px 0;
+    line-height: 1.6;
+}
+
+.empty-tips {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto;
+    border: 1px solid #e5e7eb;
+}
+
+.empty-tips > p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.empty-tips > p i {
+    color: #f59e0b;
+    font-size: 16px;
+}
+
+.empty-tips ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.empty-tips ul li {
+    font-size: 14px;
+    color: #6b7280;
+    padding: 6px 0;
+    padding-left: 24px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.empty-tips ul li::before {
+    content: '•';
+    position: absolute;
+    left: 8px;
+    color: #3b82f6;
+    font-weight: bold;
 }
 
 /* 加载状态样式优化 */
@@ -2004,7 +2240,7 @@
     color: white;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
@@ -2032,9 +2268,10 @@
     transform: translateY(-2px);
 }
 
+/* 移动端优化 */
 @media (max-width: 768px) {
     .back-to-top-btn {
-        bottom: 20px;
+        bottom: 24px;
         right: 20px;
         width: 44px;
         height: 44px;
@@ -3816,6 +4053,7 @@
     
     .menu-toggle {
         display: block;
+        color: #333; /* 深色图标 */
     }
     
     .nav-menu .nav-list {
@@ -3823,12 +4061,13 @@
         top: 100%;
         right: 0;
         flex-direction: column;
-        background-color: #111;
+        background-color: #ffffff; /* 白色背景 */
         padding: 20px;
         border-radius: 5px;
         display: none;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         z-index: 1000;
+        border: 1px solid #e0e0e0;
     }
     
     .nav-menu.active .nav-list {
@@ -3837,6 +4076,10 @@
     
     .nav-menu .nav-list li {
         margin: 10px 0;
+    }
+    
+    .nav-menu .nav-list li a {
+        color: #333 !important; /* 深色文字 */
     }
 }
 

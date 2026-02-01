@@ -6,7 +6,16 @@
     <title>Docker镜像加速服务</title>
     <link rel="icon" href="https://cdn.jsdelivr.net/gh/dqzboy/Blog-Image/BlogCourse/docker-proxy.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <!-- Highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/shell.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
     <script src="js/nav-menu.js"></script>
 </head>
 <body>
@@ -214,6 +223,14 @@
             }
         }
         window.protectCopyright = protectCopyright;
+        
+        // HTML 转义函数
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        window.escapeHtml = escapeHtml;
         
         // ========================================
         // === 文档加载相关函数 (移到此处) ===
@@ -578,7 +595,22 @@
                 });
                 
                 if (!hasResults) {
-                    searchResults.innerHTML = '<div class="empty-result"><i class="fas fa-search"></i><p>在所有平台中未找到匹配的镜像</p></div>';
+                    searchResults.innerHTML = `
+                        <div class="empty-result">
+                            <div class="empty-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>未找到匹配的镜像</h3>
+                            <p>在所有平台中没有找到与 "${escapeHtml(searchTerm)}" 相关的镜像</p>
+                            <div class="empty-tips">
+                                <p><i class="fas fa-lightbulb"></i> 搜索建议：</p>
+                                <ul>
+                                    <li>尝试使用更简短或更通用的关键词</li>
+                                    <li>检查关键词拼写是否正确</li>
+                                    <li>使用英文关键词可能会获得更好的结果</li>
+                                </ul>
+                            </div>
+                        </div>`;
                 }
                 
                 // 聚合搜索不显示分页
@@ -2387,28 +2419,64 @@
                         const docFragmentRoot = document.createElement('div');
                         docFragmentRoot.innerHTML = rawHtml;
 
-                        // 为代码块添加语言标识和复制按钮
+                        // 为代码块添加语法高亮和行号
                         const preElements = docFragmentRoot.querySelectorAll('pre');
                         preElements.forEach((preElement, index) => {
                             const codeElement = preElement.querySelector('code');
                             let codeToCopy = '';
-                            let language = 'Code';
+                            let language = 'bash';
                             
                             if (codeElement) {
                                 codeToCopy = codeElement.textContent;
+                                
                                 // 尝试从className获取语言信息
                                 const className = codeElement.className;
                                 const langMatch = className.match(/language-(\w+)/);
                                 if (langMatch) {
-                                    language = langMatch[1].toUpperCase();
+                                    language = langMatch[1].toLowerCase();
                                 }
+                                
+                                // 使用highlight.js进行语法高亮
+                                let highlightedCode;
+                                try {
+                                    if (window.hljs) {
+                                        highlightedCode = hljs.highlight(codeToCopy, { language: language }).value;
+                                    } else {
+                                        highlightedCode = codeToCopy
+                                            .replace(/&/g, '&amp;')
+                                            .replace(/</g, '&lt;')
+                                            .replace(/>/g, '&gt;');
+                                    }
+                                } catch (e) {
+                                    // 如果语言不支持，使用auto模式
+                                    highlightedCode = hljs.highlightAuto(codeToCopy).value;
+                                }
+                                
+                                // 将代码分行并创建表格结构
+                                const lines = highlightedCode.split('\n');
+                                // 如果最后一行是空行，删除它
+                                if (lines[lines.length - 1].trim() === '') {
+                                    lines.pop();
+                                }
+                                
+                                // 创建简单的代码结构（无行号）
+                                let codeHTML = '';
+                                lines.forEach((line, lineIndex) => {
+                                    codeHTML += `<div class="hljs-line">${line || ' '}</div>`;
+                                });
+                                
+                                // 应用hljs样式类
+                                codeElement.className = `hljs ${language}`;
+                                codeElement.innerHTML = codeHTML;
                             } else {
                                 codeToCopy = preElement.textContent;
                             }
 
-                            // 设置语言属性用于CSS显示
-                            preElement.setAttribute('data-language', language);
+                            // 设置语言属性
+                            preElement.setAttribute('data-language', language.toUpperCase());
+                            preElement.className = 'wp-block-code';
 
+                            // 添加复制按钮
                             if (codeToCopy.trim() !== '') {
                                 const copyButton = document.createElement('button');
                                 copyButton.className = 'copy-btn';
@@ -2621,5 +2689,6 @@
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.3/marked.min.js"></script>
+    <script src="js/mobile-menu.js"></script>
 </body>
 </html>
