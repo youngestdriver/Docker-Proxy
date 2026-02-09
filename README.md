@@ -10,49 +10,22 @@
   </p>
 </div>
 
-<div align="center">
-
-[![Auth](https://img.shields.io/badge/Auth-dqzboy-ff69b4)](https://github.com/dqzboy)
-[![GitHub contributors](https://img.shields.io/github/contributors/dqzboy/Docker-Proxy)](https://github.com/dqzboy/Docker-Proxy/graphs/contributors)
-[![GitHub Issues](https://img.shields.io/github/issues/dqzboy/Docker-Proxy.svg)](https://github.com/dqzboy/Docker-Proxy/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/stars/dqzboy/Docker-Proxy)](https://github.com/dqzboy/Docker-Proxy)
-[![HitCount](https://views.whatilearened.today/views/github/dqzboy/Docker-Proxy.svg)](https://github.com/dqzboy/Docker-Proxy)
-[![GitHub license](https://img.shields.io/github/license/dqzboy/Docker-Proxy)](https://github.com/dqzboy/Docker-Proxy/blob/main/LICENSE)
-
-
-📢 <a href="https://t.me/+ghs_XDp1vwxkMGU9" style="font-size: 15px;">Docker Proxy-TG交流群</a> 
-
-</div>
-
 ---
 
 ## 📝 准备工作
-⚠️  **重要**：选择一台国外服务器，并且未被墙。对于域名，无需进行国内备案。你也可以通过一些平台申请免费域名。在一键部署过程中，如果选择安装Caddy，它将自动配置HTTPS。若选择部署Nginx服务，则需要自行申请一个免费的SSL证书，或者通过其他方式来实现SSL加密。
+选择一台国外服务器，并且未被墙。对于域名，无需进行国内备案。你也可以通过一些平台申请免费域名。在一键部署过程中，如果选择安装Caddy，它将自动配置HTTPS。若选择部署Nginx服务，则需要自行申请一个免费的SSL证书，或者通过其他方式来实现SSL加密。
 
-<details>
-<summary><strong>免费域名证书申请</strong></summary>
-<div>
-
-**方式一：** [Acme.sh自动生成和续订Lets Encrypt免费SSL证书](https://www.dqzboy.com/16437.html)
-
-**方式二：** 域名托管到[Cloudflare 开启免费SSL证书](https://www.cloudflare.com/zh-cn/application-services/products/ssl/)
-
-**方式三：** 可通过第三方平台，申请免费的域名证书(免费一般都为DV证书)，适用于个人网站、博客和小型项目
-
-</details>
 
 
 <details>
 <summary><strong>如果你没有上面提到的环境，那么你也可以尝试以下的几种方案</strong></summary>
 <div>
 
-**方案一：**  🚀 如果你身边没有上面提到的这些东西，那么你也可以试试使用第三方免费容器部署服务 **[ClawCloud](cloud/ClawCloud/README.md)、[Render](cloud/Render/README.md)**
+**方案一：** 如果你身边没有上面提到的这些东西，那么你也可以试试使用第三方免费容器部署服务 **[ClawCloud](cloud/ClawCloud/README.md)、[Render](cloud/Render/README.md)**
 
 **方案二：** 如果你只有一台服务器，不想搞域名也不想配置TLS，那么你可以修改Docker的配置文件`daemon.json`，指定`insecure-registries` 为你的镜像加速地址
 
 **方案三：** 如果你是在国内的服务器部署，那么你可以在执行一键部署时配置代理，同时会帮你解决国内无法安装Docker的问题
-
-**方案四：** 试试这个项目，基于[Cloudflare Workers](https://github.com/dqzboy/Workers-Proxy-Docker)搭建Docker镜像代理服务
 
 </details>
 
@@ -75,61 +48,6 @@
 - [x] HubCMD-UI服务，面板展示、镜像搜索、文档教程、容器管理、容器监控告警等功能
 
 ## 📦 部署
-### 通过项目脚本部署
-```shell
-# CentOS && RHEL && Rocky
-yum -y install curl
-# ubuntu && debian
-apt -y install curl
-
-# 国外环境
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/dqzboy/Docker-Proxy/main/install/DockerProxy_Install.sh)"
-
-# 国内环境cdn加速地址
-bash -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/dqzboy/Docker-Proxy/install/DockerProxy_Install.sh)"
-
-# 国内Github代理地址
-bash -c "$(curl -fsSL https://ghp.ci/https://raw.githubusercontent.com/dqzboy/Docker-Proxy/main/install/DockerProxy_Install.sh)"
-```
-
-- **Hubcmd-UI** 面板,通过脚本安装。Demo [查看](https://dqzboy.github.io/proxyui/) 模拟环境，请实际部署后体验完整功能！
-
-```
-执行上面脚本，选项为：2 ---> 8 ---> 1
-```
-
-### 部署到第三方免费平台
-<details>
-<summary><strong>部署到 Claw Cloud</strong></summary>
-<div>
-
-> Claw Cloud 提供免费额度， 首月送5$，不需要验证信用卡，GitHub账号超过180天的用户注册，可解锁每月5$
-
-使用Claw Cloud快速部署: [点击查看教程](cloud/ClawCloud/README.md)
-
-</details>
-
-<details>
-<summary><strong>部署到 Render</strong></summary>
-<div>
-
-> Render 提供免费额度，绑卡后可以进一步提升额度
-
-使用Render快速部署: [点击查看教程](cloud/Render/README.md)
-
-</details>
-
-<details>
-<summary><strong>部署到 Koyeb</strong></summary>
-<div>
-
-> Koyeb 分配的域名在国内地区访问不是很稳定，不是很推荐！
-
-使用Koyeb快速部署: [点击查看教程](cloud/Koyeb/README.md)
-
-</details>
-
-
 ### Docker Compose 部署
 <details>
 <summary><strong>点击查看</strong></summary>
@@ -152,8 +70,6 @@ docker compose up -d dockerhub
 # 查看容器日志
 docker logs -f [容器ID或名称]
 ```
-
-**4.** 如果你对Nginx或Caddy不熟悉,那么你可以使用你熟悉的服务进行代理。也可以直接通过IP+端口的方式访问
 
 </details>
 
@@ -205,42 +121,6 @@ docker logs -f [容器ID或名称]
 
 ---
 
-## 💌 推广
-
-<table>
-  <thead>
-    <tr>
-      <th width="50%" align="center">描述信息</th>
-      <th width="50%" align="center">图文介绍</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td width="50%" align="left">
-        <a href="https://dqzboy.github.io/proxyui/racknerd" target="_blank">提供高性价比的海外VPS，支持多种操作系统，适合搭建Docker代理服务。</a>
-      </td>
-      <td width="50%" align="center">
-        <a href="https://dqzboy.github.io/proxyui/racknerd" target="_blank">
-          <img src="https://cdn.jsdelivr.net/gh/dqzboy/Images/dqzboy-proxy/Image_2025-07-07_16-14-49.png?raw=true" alt="RackNerd" width="200" height="150">
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td width="50%" align="left">
-        <a href="https://dqzboy.github.io/proxyui/CloudCone" target="_blank">CloudCone 提供灵活的云服务器方案，支持按需付费，适合个人和企业用户。</a>
-      </td>
-      <td width="50%" align="center">
-        <a href="https://dqzboy.github.io/proxyui/CloudCone" target="_blank">
-          <img src="https://cdn.jsdelivr.net/gh/dqzboy/Images/dqzboy-proxy/111.png?raw=true" alt="CloudCone" width="200" height="150">
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-##### *Telegram Bot: [点击联系](https://t.me/RelayHubBot) ｜ E-Mail: support@dqzboy.com*
-**仅接受长期稳定运营，信誉良好的商家*
-
 
 ## 🤝 参与贡献
 
@@ -261,5 +141,3 @@ docker logs -f [容器ID或名称]
 Docker-Proxy is available under the [Apache 2 license](./LICENSE)
 
 ---
-
-[![Star History Chart](https://api.star-history.com/svg?repos=dqzboy/Docker-Proxy&type=Date)](https://star-history.com/#dqzboy/Docker-Proxy&Date)
